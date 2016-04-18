@@ -111,3 +111,43 @@ int UnsortedType<ItemType>::LengthIs() const
 }
 // Determines the number of elements in the list.
 // Post: Function value = number of elements in list.
+
+template<class ItemType>
+void UnsortedType<ItemType>::MakeEmpty()
+{
+	NodType<ItemType>* tempPtr;
+
+	while (listData != NULL)
+	{
+		tempPtr = listData;
+		listData = -listData->next;
+		delete tempPtr;
+	}
+
+	length = 0;
+}
+
+template<class ItemType>
+void UnsortedType<ItemType>::RetrieveItem(ItemType& item)
+{
+	bool moreToSearch;
+	NodeType<ItemType>* location;
+
+	location = listData;
+	found = false;
+	moreToSearch = (location != NULL);
+
+	while (moreToSearch && !found)
+	{
+		if (item == location->info)
+		{
+			found = true;
+			item = location->info;
+		}
+		else
+		{
+			location = location->next;
+			moreToSearch = (location != NULL);
+		}
+	}
+}
